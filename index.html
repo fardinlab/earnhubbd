@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EarnHub 24</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/a/AVvXsEhw2X8ZxUOw00W69KObZZd8F7xvlv_lEGIFMuR5ToQpSlflRpyWqgUUXL3P5t6jvXxWgNrOEkuPjql9_YLBVwk_GJfdT5xJ9786PMOYMD_zkUnzbXbgt4B0fSHXlbACU8UFlqbtwTkSxCR84z0OGp8z4OOO3V8ucrlBcPKdq7NJQPZhnh9oZ6_LjI1plNBG">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #7209b7;
+      --success: #4cc9f0;
+      --success-dark: #2fb5e0;
+      --danger: #f72585;
+      --dark: #1a1a2e;
+      --darker: #0d0d1a;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --gray-light: #e9ecef;
+      --border-radius: 12px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, var(--dark), var(--darker));
+      color: var(--light);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background Animation */
+    .floating-shapes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .shape {
+      position: absolute;
+      opacity: 0.1;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.1;
+      }
+      50% {
+        opacity: 0.15;
+      }
+      100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0.1;
+      }
+    }
+
+    /* Card Styles */
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      color: #333;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    /* Login Card */
+    #login-card {
+      width: 420px;
+      padding: 40px 35px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .logo-icon {
+      font-size: 28px;
+      color: var(--primary);
+      margin-right: 10px;
+    }
+
+    .card-header h2 {
+      color: var(--dark);
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card-header p {
+      color: var(--gray);
+      font-size: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 14px;
+    }
+
+    .input-with-icon {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 15px 14px 45px;
+      border-radius: 8px;
+      border: 1.5px solid var(--gray-light);
+      outline: none;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      cursor: pointer;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+
+    .forgot-password a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .forgot-password a:hover {
+      color: var(--primary-dark);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-btn {
+      background: var(--primary);
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .login-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+    }
+
+    .login-btn i {
+      margin-right: 8px;
+    }
+
+    .error {
+      color: var(--danger);
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-align: center;
+      display: none;
+      padding: 10px;
+      background: rgba(247, 37, 133, 0.1);
+      border-radius: 6px;
+    }
+
+    /* Profile Card */
+    #profile-card {
+      width: 95vw;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: none;
+    }
+
+    body.logged-in {
+      display: block;
+      padding: 30px 0;
+    }
+
+    .profile-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .profile-title h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .profile-title p {
+      opacity: 0.9;
+      font-size: 16px;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .action-btn i {
+      margin-right: 8px;
+    }
+
+    .profile-content {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .profile-sidebar {
+      background: #f8f9fa;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-info {
+      text-align: center;
+      margin-bottom: 40px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .profile-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--success);
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .user-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .user-status {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(76, 201, 240, 0.15);
+      color: var(--success-dark);
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 2px solid var(--success);
+    }
+
+    .user-status i {
+      margin-right: 8px;
+    }
+
+    .stats-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      width: 100%;
+      max-width: 500px;
+      border: 1px solid var(--gray-light);
+    }
+
+    .stats-card h3 {
+      font-size: 20px;
+      color: var(--dark);
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .stats-card h3 i {
+      margin-right: 12px;
+      color: var(--primary);
+      font-size: 22px;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .stat-item:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .stat-label {
+      color: var(--dark);
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+
+    .stat-label i {
+      margin-right: 10px;
+      width: 20px;
+      color: var(--primary);
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 15px;
+      text-align: right;
+    }
+
+    .referral-code-box {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      margin-bottom: 25px;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      color: white;
+    }
+
+    .referral-code-box h4 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .referral-code-box h4 i {
+      margin-right: 10px;
+    }
+
+    .referral-code {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      font-family: monospace;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+    }
+
+    .withdraw-btn {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--primary);
+      border: none;
+      border-radius: 10px;
+      padding: 15px 25px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .withdraw-btn:hover {
+      background: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .withdraw-btn i {
+      margin-right: 10px;
+    }
+
+    .profile-main {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-title {
+      font-size: 28px;
+      color: var(--dark);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+
+    .section-title i {
+      margin-right: 15px;
+      color: var(--primary);
+    }
+
+    .logout-btn {
+      background: var(--danger);
+      color: white;
+      margin-top: 30px;
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      padding: 15px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .logout-btn:hover {
+      background: #e11574;
+      transform: translateY(-2px);
+    }
+
+    /* Money and Star Animations */
+    .money, .star {
+      position: fixed;
+      font-size: 24px;
+      pointer-events: none;
+      opacity: 0;
+      z-index: -1;
+    }
+
+    body.logged-in .money,
+    body.logged-in .star {
+      opacity: 0.8;
+    }
+
+    @keyframes fallMoney {
+      0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) translateX(60px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes twinkleStar {
+      0% {
+        transform: scale(0.6) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1) rotate(180deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0.6) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .profile-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #login-card {
+        width: 90vw;
+        padding: 30px 25px;
+      }
+      
+      .profile-sidebar {
+        padding: 30px 20px;
+      }
+      
+      .stats-card {
+        padding: 20px;
+      }
+      
+      .user-name {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Animation -->
+  <div class="floating-shapes" id="floating-shapes"></div>
+
+  <!-- Login Card -->
+  <div class="card" id="login-card">
+    <div class="card-header">
+      <div class="logo">
+        <i class="fas fa-coins logo-icon"></i>
+        <h2>EarnHub BD</h2>
+      </div>
+      <p>Login to access your earning dashboard</p>
+    </div>
+
+    <p class="error" id="error-msg">Invalid email or password!</p>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-with-icon">
+          <i class="fas fa-envelope input-icon"></i>
+          <input type="email" id="email" required placeholder="user@example.com" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-with-icon">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="password" required placeholder="Enter your password" />
+          <i class="fas fa-eye password-toggle" id="password-toggle"></i>
+        </div>
+      </div>
+
+      <div class="forgot-password">
+        <a href="#">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </form>
+  </div>
+
+  <!-- Profile Card -->
+  <div class="card" id="profile-card">
+    <div class="profile-header">
+      <div class="profile-title">
+        <h1>Earning Dashboard</h1>
+        <p>Track your earnings, referrals, and withdraw funds</p>
+      </div>
+    </div>
+
+    <div class="profile-content">
+      <!-- Centered User Section -->
+      <div class="profile-sidebar">
+        <div class="user-info">
+          <img id="p-photo" class="profile-photo" src="" alt="Profile Photo" />
+          <div class="user-name" id="p-name">Fardin Sagor</div>
+          <div class="user-status">
+            <i class="fas fa-check-circle"></i> Verified Earner
+          </div>
+        </div>
+
+        <div class="stats-card">
+          <h3><i class="fas fa-chart-line"></i> Quick Stats</h3>
+          <div class="stat-item">
+            <span class="stat-label"><i class="fas fa-envelope"></i> Email</span>
+            <span class="stat-value" id="p-email">fardin@gmail.com</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label"><i class="fas fa-phone"></i> Mobile Number</span>
+            <span class="stat-value" id="p-phone">017xxxxxxxx</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label"><i class="fas fa-money-bill-wave"></i> Total Earnings</span>
+            <span class="stat-value">$<span id="p-total-earnings">150.5</span></span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label"><i class="fas fa-wallet"></i> Available Balance</span>
+            <span class="stat-value">$<span id="p-balance">120.5</span></span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label"><i class="fas fa-users"></i> Total Referral</span>
+            <span class="stat-value" id="p-invite">12</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label"><i class="fas fa-download"></i> Total Withdraw</span>
+            <span class="stat-value">$<span id="p-withdraw">30</span></span>
+          </div>
+        </div>
+
+        <div class="referral-code-box">
+          <h4><i class="fas fa-gift"></i> My Referral Code</h4>
+          <div class="referral-code" id="referral-code">FARDIN2024</div>
+        </div>
+
+        <button class="withdraw-btn" onclick="window.open('https://forms.gle/kGuvrxbCb4UsLe7p9', '_blank')">
+          <i class="fas fa-external-link-alt"></i> Withdrawal Money
+        </button>
+      </div>
+
+      <!-- Main Content -->
+      <div class="profile-main">
+        <h2 class="section-title"><i class="fas fa-wallet"></i></h2>
+        
+        <button class="logout-btn" id="logout-btn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Demo user data with referral codes
+    const users = {
+      "fardin@gmail.com": {
+        password: "123456",
+        name: "Fardin Sagor",
+        phone: "01712345678",
+        balance: 120.5,
+        totalEarnings: 0.5,
+        withdraw: 30,
+        invites: 12,
+        referralEarnings: 45.5,
+        referralCode: "FARDIN2024",
+        photo: "https://blogger.googleusercontent.com/img/a/AVvXsEhRV3GuadmkvWH42PkbRFUxxck66a0Zim350pVRhWx-qkQF07jlobKyvKgdMmVn13i-8s632rD0xOH5kiUCcfhhf0eiGgl5SbUvzonEFJOufgl9-gerX8vspH6NIsZ1a_xZBlZ3aS4sHYHncWYhJgj6cwaI9E7VdrZfNIHaspBVWOYgw4n7zbV0oOOneOUe=w334-h413"
+      },
+      "demo@earnhub.com": {
+        password: "demo123",
+        name: "Demo User",
+        phone: "01898765432",
+        balance: 85.25,
+        totalEarnings: 120.75,
+        withdraw: 35.5,
+        invites: 8,
+        referralEarnings: 100,
+        referralCode: "DEMO5678",
+        photo: "#"
+      },
+      "roni.islam100ss@gmail.com": {
+        password: "123456",
+        name: "Roni Islam",
+        phone: "01340060197",
+        balance: 0,
+        totalEarnings: 0,
+        withdraw: 0,
+        invites: 0,
+        referralEarnings: 28.5,
+        referralCode: "RONI97",
+        photo: "https://blogger.googleusercontent.com/img/a/AVvXsEh77aT_U9j38ZG1YZs25eW8znZQjSQi_k5aAbDRovPEyCW7CH6Ms4fVKIoGrpvGKT_AGhxs4nUEeKeyVu5bWC58o0lCvaTTfNr9maAMb0cnoqKklutTR2Mo8z-0tP-A3sbebyOXEqtQb3eU7mInQLeywEwuCa7TXitM4iAa_Hmx40fUeqK0W9baMh-ad8ng=w228-h294"
+      }
+    };
+
+    // DOM Elements
+    const loginCard = document.getElementById("login-card");
+    const profileCard = document.getElementById("profile-card");
+    const errorMsg = document.getElementById("error-msg");
+    const loginForm = document.getElementById("login-form");
+    const passwordToggle = document.getElementById("password-toggle");
+    const logoutBtn = document.getElementById("logout-btn");
+
+    // Create floating background shapes
+    function createFloatingShapes() {
+      const shapesContainer = document.getElementById("floating-shapes");
+      const shapesCount = 15;
+      
+      for (let i = 0; i < shapesCount; i++) {
+        const shape = document.createElement("div");
+        shape.classList.add("shape");
+        
+        const size = Math.random() * 100 + 50;
+        shape.style.width = `${size}px`;
+        shape.style.height = `${size}px`;
+        
+        shape.style.left = `${Math.random() * 100}vw`;
+        shape.style.top = `${Math.random() * 100}vh`;
+        
+        shape.style.animationDelay = `${Math.random() * 20}s`;
+        shape.style.animationDuration = `${15 + Math.random() * 20}s`;
+        
+        shapesContainer.appendChild(shape);
+      }
+    }
+
+    // Toggle password visibility
+    passwordToggle.addEventListener("click", function() {
+      const passwordInput = document.getElementById("password");
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
+      
+      this.classList.toggle("fa-eye");
+      this.classList.toggle("fa-eye-slash");
+    });
+
+    // Login handler
+    loginForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const user = users[email];
+
+      if (!user || user.password !== password) {
+        errorMsg.style.display = "block";
+        return;
+      }
+
+      errorMsg.style.display = "none";
+      showProfile(user, email);
+    });
+
+    // Show profile function
+    function showProfile(user, email) {
+      loginCard.style.display = "none";
+      profileCard.style.display = "block";
+      document.body.classList.add("logged-in");
+
+      // Update profile information
+      document.getElementById("p-photo").src = user.photo;
+      document.getElementById("p-name").textContent = user.name;
+      document.getElementById("p-email").textContent = email;
+      document.getElementById("p-phone").textContent = user.phone;
+      document.getElementById("p-balance").textContent = user.balance;
+      document.getElementById("p-withdraw").textContent = user.withdraw;
+      document.getElementById("p-invite").textContent = user.invites;
+      document.getElementById("p-total-earnings").textContent = user.totalEarnings;
+      document.getElementById("referral-code").textContent = user.referralCode;
+
+      // Create background animations
+      createBackgroundAnimations();
+    }
+
+    // Logout handler
+    logoutBtn.addEventListener("click", () => {
+      profileCard.style.display = "none";
+      loginCard.style.display = "block";
+      document.body.classList.remove("logged-in");
+      loginForm.reset();
+      
+      // Clear background animations
+      document.querySelectorAll('.money, .star').forEach(el => el.remove());
+    });
+
+    // Create background money and star animations
+    function createBackgroundAnimations() {
+      const moneyCount = 18;
+      const starCount = 14;
+
+      for (let i = 0; i < moneyCount; i++) {
+        const span = document.createElement("span");
+        span.className = "money";
+        span.textContent = "💸";
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.animation = `fallMoney ${10 + Math.random() * 10}s linear infinite`;
+        span.style.animationDelay = -Math.random() * 20 + "s";
+        document.body.appendChild(span);
+      }
+
+      for (let i = 0; i < starCount; i++) {
+        const span = document.createElement("span");
+        span.className = "star";
+        span.textContent = "⭐";
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.top = Math.random() * 100 + "vh";
+        span.style.animation = `twinkleStar ${3 + Math.random() * 3}s ease-in-out infinite`;
+        span.style.animationDelay = Math.random() * 5 + "s";
+        document.body.appendChild(span);
+      }
+    }
+
+    // Initialize the page
+    createFloatingShapes();
+  </script>
+</body>
+</html>
